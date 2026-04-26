@@ -1,0 +1,13 @@
+/vendor/
+/.php-cs-fixer.cache
+/.phpunit.cache/
+/var/
+composer.lock
+.idea/
+.vscode/
+.claude/
+/.claude/
+.cursor/
+/.cursor/
+SANDBOX-REPORT.md
+*.log

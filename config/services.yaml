@@ -1,0 +1,13 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    VenneMedia\VenneKiContaoBundle\Service\BotConfig:
+        public: true
+
+    VenneMedia\VenneKiContaoBundle\Hook\InjectWidgetHook:
+        public: true
+        arguments:
+            - '@VenneMedia\VenneKiContaoBundle\Service\BotConfig'

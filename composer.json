@@ -1,0 +1,90 @@
+{
+    "name": "venne-media/venne-ki-contao-bundle",
+    "description": "Venne KI — KI-Chat-Widget für Contao 5. Eine Bot-UUID, keine weitere Konfiguration. Made in Germany, DSGVO-konform, EU-Hosting.",
+    "type": "contao-bundle",
+    "license": "LGPL-3.0-or-later",
+    "keywords": ["contao", "contao-bundle", "ai", "chatbot", "widget", "dsgvo"],
+    "homepage": "https://venne-ki.de",
+    "support": {
+        "email": "support@venne-media.de",
+        "issues": "https://github.com/Venne-Media-GmbH/venne-ki-contao-bundle/issues",
+        "source": "https://github.com/Venne-Media-GmbH/venne-ki-contao-bundle"
+    },
+    "authors": [
+        {
+            "name": "Jannik Schwarz",
+            "email": "jschwarz@venne-media.de",
+            "role": "Developer"
+        },
+        {
+            "name": "Venne Media GmbH",
+            "email": "info@venne-media.de",
+            "homepage": "https://venne-media.de",
+            "role": "Publisher"
+        }
+    ],
+    "require": {
+        "php": "^8.2",
+        "contao/core-bundle": "^5.3",
+        "symfony/config": "^6.4 || ^7.0",
+        "symfony/dependency-injection": "^6.4 || ^7.0",
+        "symfony/http-kernel": "^6.4 || ^7.0",
+        "symfony/security-csrf": "^6.4 || ^7.0"
+    },
+    "require-dev": {
+        "contao/manager-plugin": "^2.12",
+        "phpstan/phpstan": "^1.11",
+        "phpstan/phpstan-phpunit": "^1.4",
+        "phpstan/phpstan-strict-rules": "^1.6",
+        "phpunit/phpunit": "^10.5",
+        "friendsofphp/php-cs-fixer": "^3.58"
+    },
+    "conflict": {
+        "contao/core-bundle": "<5.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "VenneMedia\\VenneKiContaoBundle\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "VenneMedia\\VenneKiContaoBundle\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "contao-manager-plugin": "VenneMedia\\VenneKiContaoBundle\\ContaoManager\\Plugin",
+        "branch-alias": {
+            "dev-main": "4.x-dev"
+        }
+    },
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": {
+            "contao-components/installer": true,
+            "contao/manager-plugin": true,
+            "php-http/discovery": false
+        }
+    },
+    "scripts": {
+        "cs-fix": "php-cs-fixer fix --diff",
+        "cs-check": "php-cs-fixer fix --diff --dry-run",
+        "phpstan": "phpstan analyse",
+        "test": "phpunit",
+        "test-coverage": "phpunit --coverage-html var/coverage",
+        "qa": [
+            "@cs-check",
+            "@phpstan",
+            "@test"
+        ]
+    },
+    "scripts-descriptions": {
+        "cs-fix": "Apply coding standards to every source file.",
+        "cs-check": "Report coding-standard violations without fixing them.",
+        "phpstan": "Run static analysis.",
+        "test": "Run the PHPUnit test suite.",
+        "qa": "Run the full quality-assurance pipeline (CS + PHPStan + tests)."
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}

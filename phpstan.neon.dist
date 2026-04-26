@@ -1,0 +1,26 @@
+includes:
+    - vendor/phpstan/phpstan-phpunit/extension.neon
+    - vendor/phpstan/phpstan-phpunit/rules.neon
+    - vendor/phpstan/phpstan-strict-rules/rules.neon
+
+parameters:
+    level: 8
+    paths:
+        - src
+        - tests
+    treatPhpDocTypesAsCertain: false
+    reportUnmatchedIgnoredErrors: false
+    ignoreErrors:
+        # Contao's legacy static API (Config::get/set/persist) is untyped by design.
+        - '#Cannot call method (persist|get|set)\(\) on Contao\\Config#'
+        # Contao BackendModule's $this->Template is dynamic.
+        - '#Cannot access property \$.+ on mixed#'
+        - '#Access to an undefined property VenneMedia\\VenneKiContaoBundle\\Backend\\KiAssistentSettingsModule::\$Template#'
+        # Contao\BackendUser uses __get for $isAdmin.
+        - '#Access to an undefined property Contao\\(Backend)?User::\$isAdmin#'
+        # Contao\Input::post returns mixed; we cast to string explicitly.
+        - '#Cannot cast array\|.*\|null to string#'
+        # Contao's container parameter "contao.csrf_token_name" is configured to be a string.
+        - '#Cannot cast .+ to string#'
+        # Contao ships its own CsrfTokenManager that extends Symfony's interface and adds getDefaultTokenValue().
+        - '#Call to an undefined method Symfony\\Component\\Security\\Csrf\\CsrfTokenManagerInterface::getDefaultTokenValue#'

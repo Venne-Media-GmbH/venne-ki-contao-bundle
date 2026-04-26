@@ -1,0 +1,185 @@
+<style>
+    :root {
+        --vki-bg: #ffffff;
+        --vki-bg-muted: #f9fafb;
+        --vki-border: #e5e7eb;
+        --vki-text: #111827;
+        --vki-text-muted: #6b7280;
+        --vki-text-soft: #4b5563;
+        --vki-accent: #3b82f6;
+        --vki-accent-hover: #2563eb;
+        --vki-accent-soft: rgba(59, 130, 246, 0.12);
+        --vki-ok-bg: #ecfdf5;
+        --vki-ok-border: #a7f3d0;
+        --vki-ok-text: #065f46;
+        --vki-ok-dot: #10b981;
+        --vki-info-bg: #eff6ff;
+        --vki-info-border: #bfdbfe;
+        --vki-info-text: #1e40af;
+        --vki-danger: #b91c1c;
+        --vki-danger-border: #fecaca;
+        --vki-code-bg: #f3f4f6;
+    }
+
+    html[data-color-scheme="dark"] {
+        --vki-bg: #1f2937;
+        --vki-bg-muted: #111827;
+        --vki-border: #374151;
+        --vki-text: #f3f4f6;
+        --vki-text-muted: #9ca3af;
+        --vki-text-soft: #d1d5db;
+        --vki-accent: #60a5fa;
+        --vki-accent-hover: #3b82f6;
+        --vki-accent-soft: rgba(96, 165, 250, 0.18);
+        --vki-ok-bg: rgba(16, 185, 129, 0.12);
+        --vki-ok-border: rgba(16, 185, 129, 0.35);
+        --vki-ok-text: #34d399;
+        --vki-ok-dot: #10b981;
+        --vki-info-bg: rgba(59, 130, 246, 0.12);
+        --vki-info-border: rgba(59, 130, 246, 0.35);
+        --vki-info-text: #93c5fd;
+        --vki-danger: #f87171;
+        --vki-danger-border: rgba(248, 113, 113, 0.35);
+        --vki-code-bg: #111827;
+    }
+
+    .vki-wrap { max-width: 780px; margin: 0; padding: 24px 8px 32px 8px; color: var(--vki-text); font-size: 14px; }
+    .vki-intro { color: var(--vki-text-muted); font-size: 13px; margin: 0 0 24px 0; line-height: 1.55; }
+
+    .vki-card { background: var(--vki-bg); border: 1px solid var(--vki-border); border-radius: 10px; padding: 20px 24px; margin-bottom: 16px; }
+    .vki-card h3 { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--vki-text-muted); margin: 0 0 14px 0; }
+
+    .vki-status { display: flex; align-items: flex-start; gap: 14px; padding: 16px 20px; border-radius: 10px; margin-bottom: 20px; border: 1px solid transparent; }
+    .vki-status .vki-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; margin-top: 6px; }
+    .vki-status.is-ok { background: var(--vki-ok-bg); border-color: var(--vki-ok-border); color: var(--vki-ok-text); }
+    .vki-status.is-ok .vki-dot { background: var(--vki-ok-dot); }
+    .vki-status.is-off { background: var(--vki-info-bg); border-color: var(--vki-info-border); color: var(--vki-info-text); }
+    .vki-status.is-off .vki-dot { background: var(--vki-accent); }
+    .vki-status strong { display: block; font-size: 14px; font-weight: 600; margin-bottom: 2px; }
+    .vki-status small { color: inherit; opacity: 0.85; font-size: 12.5px; line-height: 1.55; }
+    .vki-status a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
+
+    .vki-steps { counter-reset: vki-step; list-style: none; padding: 0; margin: 0; }
+    .vki-steps > li { counter-increment: vki-step; padding: 14px 0 14px 48px; position: relative; line-height: 1.6; border-bottom: 1px solid var(--vki-border); color: var(--vki-text-soft); }
+    .vki-steps > li:last-child { border-bottom: 0; padding-bottom: 0; }
+    .vki-steps > li:first-child { padding-top: 0; }
+    .vki-steps > li::before { content: counter(vki-step); position: absolute; left: 0; top: 14px; width: 28px; height: 28px; border-radius: 50%; background: var(--vki-accent); color: #fff; font-weight: 600; font-size: 13px; display: flex; align-items: center; justify-content: center; }
+    .vki-steps > li:first-child::before { top: 0; }
+    .vki-steps strong { color: var(--vki-text); font-weight: 600; }
+    .vki-steps .vki-hint { display: block; color: var(--vki-text-muted); font-size: 12px; margin-top: 4px; }
+    .vki-cta { display: inline-flex; align-items: center; gap: 6px; background: var(--vki-accent); color: #fff !important; padding: 7px 14px; border-radius: 6px; text-decoration: none !important; font-size: 13px; font-weight: 500; margin-top: 10px; }
+    .vki-cta:hover { background: var(--vki-accent-hover); }
+    .vki-cta::after { content: "↗"; font-size: 12px; opacity: 0.9; }
+
+    .vki-form { margin: 0; }
+    .vki-form label { display: block; font-size: 13px; font-weight: 600; color: var(--vki-text); margin-bottom: 8px; }
+    .vki-form input[type="text"] { width: 100%; padding: 11px 14px; border: 1px solid var(--vki-border); border-radius: 8px; font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: 13px; background: var(--vki-bg-muted); color: var(--vki-text); box-sizing: border-box; }
+    .vki-form input[type="text"]:focus { outline: none; border-color: var(--vki-accent); box-shadow: 0 0 0 3px var(--vki-accent-soft); }
+    .vki-form input[type="text"]::placeholder { color: var(--vki-text-muted); opacity: 0.55; }
+    .vki-form .vki-help { color: var(--vki-text-muted); font-size: 12px; margin-top: 8px; line-height: 1.55; }
+    .vki-form .vki-help code, .vki-steps code { background: var(--vki-code-bg); padding: 1px 6px; border-radius: 4px; font-size: 12px; }
+
+    .vki-actions { display: flex; gap: 10px; padding: 16px 24px; background: var(--vki-bg); border: 1px solid var(--vki-border); border-radius: 10px; margin-bottom: 16px; }
+    .vki-actions button { padding: 10px 18px; border-radius: 6px; font-size: 13px; font-weight: 500; cursor: pointer; border: 1px solid transparent; font-family: inherit; }
+    .vki-actions .vki-btn-primary { background: var(--vki-accent); color: #fff; }
+    .vki-actions .vki-btn-primary:hover { background: var(--vki-accent-hover); }
+    .vki-actions .vki-btn-danger { background: transparent; color: var(--vki-danger); border-color: var(--vki-danger-border); }
+    .vki-actions .vki-btn-danger:hover { background: var(--vki-danger-border); }
+
+    .vki-info { font-size: 13px; line-height: 1.7; color: var(--vki-text-soft); }
+    .vki-info p { margin: 0 0 10px 0; }
+    .vki-info p:last-child { margin: 0; }
+    .vki-info strong { color: var(--vki-text); font-weight: 600; }
+    .vki-info code { background: var(--vki-code-bg); padding: 1px 6px; border-radius: 4px; font-size: 12px; }
+
+    .vki-links { list-style: none; padding: 0; margin: 0; font-size: 13px; }
+    .vki-links li { padding: 6px 0; color: var(--vki-text-soft); }
+    .vki-links li::before { content: "→"; color: var(--vki-accent); margin-right: 8px; }
+    .vki-links a { color: var(--vki-text-soft); text-decoration: none; }
+    .vki-links a:hover { color: var(--vki-accent); text-decoration: underline; }
+</style>
+
+<div class="vki-wrap">
+    <p class="vki-intro">KI-Chat-Widget für deine Contao-Website. Nur eine Bot-UUID einfügen — fertig.</p>
+
+    <?php \Contao\Message::generate(); ?>
+
+    <?php
+    $e = static fn ($v) => htmlspecialchars((string) $v, ENT_QUOTES, 'UTF-8');
+    ?>
+
+    <?php if ($this->isConfigured): ?>
+        <div class="vki-status is-ok">
+            <span class="vki-dot"></span>
+            <div>
+                <strong>Verbunden</strong>
+                <small>
+                    Das Chat-Widget wird auf allen veröffentlichten Frontend-Seiten geladen.
+                    Bot konfigurierst du im <a href="<?= $e($this->portalUrl) ?>" target="_blank" rel="noopener"><?= $e($this->portalHost) ?></a>.
+                </small>
+            </div>
+        </div>
+    <?php else: ?>
+        <div class="vki-status is-off">
+            <span class="vki-dot"></span>
+            <div>
+                <strong>Noch nicht verbunden</strong>
+                <small>Folge der Anleitung unten, um das Widget zu aktivieren.</small>
+            </div>
+        </div>
+
+        <div class="vki-card">
+            <h3>Schnellstart</h3>
+            <ol class="vki-steps">
+                <li>Im <a href="<?= $e($this->portalUrl) ?>" target="_blank" rel="noopener">Venne KI-Portal</a> Bot anlegen.</li>
+                <li>Im Bot unter „Integration & Zeiten" deine Domain freigeben.</li>
+                <li>Die Bot-UUID kopieren und unten einfügen.</li>
+            </ol>
+        </div>
+    <?php endif; ?>
+
+    <form action="<?= $e($this->formAction) ?>" id="tl_venne_chatbot" class="vki-form" method="post" enctype="application/x-www-form-urlencoded">
+        <input type="hidden" name="FORM_SUBMIT" value="<?= $e($this->formToken) ?>">
+        <input type="hidden" name="REQUEST_TOKEN" value="<?= $e($this->requestToken) ?>">
+
+        <div class="vki-card">
+            <label for="ki_bot_uuid">Bot-UUID</label>
+            <input type="text"
+                   name="ki_bot_uuid"
+                   id="ki_bot_uuid"
+                   value="<?= $e($this->botUuid) ?>"
+                   autocomplete="off"
+                   spellcheck="false"
+                   placeholder="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx">
+            <p class="vki-help">
+                Die UUID findest du im
+                <a href="<?= $e($this->portalUrl) ?>" target="_blank" rel="noopener">Venne KI-Portal</a>
+                bei deinem Bot im Tab „Integration & Zeiten".
+            </p>
+        </div>
+
+        <div class="vki-actions">
+            <button type="submit" name="save" class="vki-btn-primary" accesskey="s">
+                <?= $this->isConfigured ? 'Aktualisieren' : 'Speichern &amp; Verbinden' ?>
+            </button>
+            <?php if ($this->isConfigured): ?>
+                <button type="submit"
+                        name="ki_action"
+                        value="clear"
+                        class="vki-btn-danger"
+                        formnovalidate
+                        onclick="return confirm('Möchtest du das Widget wirklich entfernen? Es wird danach nicht mehr auf der Seite geladen.');">
+                    Verbindung trennen
+                </button>
+            <?php endif; ?>
+        </div>
+    </form>
+
+    <div class="vki-card">
+        <h3>Hilfe</h3>
+        <ul class="vki-links">
+            <li><a href="<?= $e($this->portalUrl) ?>/faq" target="_blank" rel="noopener">FAQ</a></li>
+            <li><a href="mailto:support@venne-media.de">support@venne-media.de</a></li>
+        </ul>
+    </div>
+</div>
